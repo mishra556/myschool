@@ -46,33 +46,42 @@ socket.on('heading',msg => {
 });
 
 function upload(){
-var msg="select your image";
-socket.emit('upload',msg);
+
+
+if (flag==0){
+    socket.emit('upload', sender);
+    alert(sender);
+  
+   }
+   else if(flag==1){
+    socket.emit('touser', {sender, receiver});
+    alert (sender + receiver);
+
+   }
+
+
 }
 
 
-socket.on('fileupd',filename =>{
-console.log(filename);
 
-
-});
-socket.on('ufname',filename =>{
+socket.on('ufname', data =>{
 
     var time = document.getElementById('mytime').innerText;
 var ul = document.querySelector(".msgbox");
-var st = filename;
-
+var st = data.sender;
+var file=data.filename;
+alert(file + st);
 var listtext = document.createTextNode(st);
 var msgadd = document.createElement('div');
 
 msgadd.className = "msg left";
-msgadd.innerText = st + '    ' +  '  '+  time  ;
+msgadd.innerText = 'Sender :' + st + '    ' +  '  '+  time  ;
 /* msgadd.innerHTML='<img src=img/welcomescan.jpg />'; */
 var img = document.createElement('img'); 
 
             img.width="200";
             img.height="200";
-            img.src = 'img/'+ filename; 
+            img.src = 'img/'+ file; 
             img.style.display="block";
             img.style.marginBottom="10px";
             var path=img.src;
@@ -87,8 +96,38 @@ ul.append(msgadd);
 scrollbottom();
 
 });
+socket.on('upname',data =>{
+
+var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+var st = data.sender
+var file=data.filename;
+alert(file + st);
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+
+msgadd.className = "msg left";
+msgadd.innerText = st + '    ' +  '  '+  time  ;
+/* msgadd.innerHTML='<img src=img/welcomescan.jpg />'; */
+var img = document.createElement('img'); 
+
+        img.width="200";
+        img.height="200";
+        img.src = 'img/'+ file; 
+        img.style.display="block";
+        img.style.marginBottom="10px";
+        var path=img.src;
+        
+       
+        msgadd.append(img) ; 
 
 
+
+
+ul.append(msgadd);
+scrollbottom();
+
+});
 
 
 
@@ -346,7 +385,7 @@ for (var i = 0; i < item.length; i++) {
     max-width: 700px;
     height: 400px;
     overflow-y:auto;
-    background-color:darkslategrey;
+    background-color:dimgrey;
     border-radius: 20px;
 }
 .footer{
@@ -437,9 +476,9 @@ border-radius: 10px;
 .msg {
          width: 200px;
          background-color: gray;
-         padding: 20px;
+         padding: 5px;
          border-radius: 10px;
-         margin: 17px 12px;
+         
          border: 2px solid black;
 
 

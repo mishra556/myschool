@@ -77,10 +77,10 @@ io.on('connection', (socket) => {
 
 
 
-   socket.on('upload', msg => {
+   socket.on('upload', sender => {
+var send=sender;
 
-      console.log(msg);
-      
+          
       
       app.post('/' , (req ,res) => {
          
@@ -98,7 +98,7 @@ io.on('connection', (socket) => {
                else{
                  
                  
-                   socket.broadcast.emit('ufname', filename);
+                   socket.broadcast.emit('ufname', {sender,filename});
                }
             });
          }
@@ -115,6 +115,49 @@ io.on('connection', (socket) => {
       
       
          } );
+
+
+
+
+         socket.on('touser', data=> {
+
+            var socketid = users[data.receiver];
+            send=data.sender;
+            
+            app.post('/' , (req ,res) => {
+               
+               if (req.files){
+                  console.log(req.files);
+                  var file=req.files.file;
+                  console.log(file);
+                  var filename=file.name;
+                  console.log(filename);
+                  
+                  file.mv('./public/img/' + filename , function (err){
+                     if(err){
+                        res.send(err);
+                     }
+                     else{
+                       
+                       
+                        io.to(socketid).emit('upname', {send,filename});
+                     }
+                  });
+               }
+               
+               
+               
+               });
+               
+            
+            
+            
+            
+            
+            
+            
+               } );
+                 
            
       
          });
