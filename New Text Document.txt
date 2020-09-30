@@ -1,0 +1,29 @@
+{
+  "name": "mychat",
+  "version": "1.0.0",
+  "description": "vhat",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mishra556/mychatuser.git"
+  },
+  "author": "mukesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mishra556/mychatuser/issues"
+  },
+  "homepage": "https://github.com/mishra556/mychatuser#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "http": "0.0.1-security",
+    "internet-available": "^1.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+  }
+}

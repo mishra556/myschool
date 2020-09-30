@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+
+   <script>
+
+
+
+      var socket = io();
+      var name;
+      var receiver='';
+      var sender='';
+      var flag=0;
+var req=0;
+
+
+function sname(){
+var name=document.getElementById('id').value;
+if (id!==""){
+  
+    sender=name;
+    alert(name);
+
+    socket.emit ('new-user-join',name);
+
+}
+else{
+    alert("please enter your name");
+}
+
+}
+
+
+
+
+
+
+socket.on('heading',msg => {
+    document.getElementById('header').innerText=msg;
+
+});
+
+function upload(){
+var msg="select your image";
+socket.emit('upload',msg);
+}
+
+
+socket.on('fileupd',filename =>{
+console.log(filename);
+
+
+});
+socket.on('ufname',filename =>{
+
+    var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+var st = filename;
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+
+msgadd.className = "msg left";
+msgadd.innerText = st + '    ' +  '  '+  time  ;
+/* msgadd.innerHTML='<img src=img/welcomescan.jpg />'; */
+var img = document.createElement('img'); 
+
+            img.width="200";
+            img.height="200";
+            img.src = 'img/'+ filename; 
+            img.style.display="block";
+            img.style.marginBottom="10px";
+            var path=img.src;
+            
+           
+            msgadd.append(img) ; 
+
+
+
+
+ul.append(msgadd);
+scrollbottom();
+
+});
+
+
+
+
+
+// old code ---------------------------------------------------
+socket.on('left', name => {
+
+var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+var st = name;
+var stleft=name;
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+msgadd.className = "msg left";
+msgadd.innerText = st + ': ' + 'left the chat' + "   " + time  ;
+
+
+/* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
+ul.append(msgadd);
+scrollbottom();
+
+
+
+
+
+
+
+});
+
+
+socket.on('leftli', name => {
+
+var st = name;
+var msg = st;
+
+console.log(st);
+
+
+var ul = document.getElementById('userl');
+
+var listtext = document.createTextNode(st);
+
+var msgbtn = document.createElement('li');
+
+msgbtn.innerText = st + ': ' + 'left the chat' ;
+msgbtn.id = ".suser";
+msgbtn.className = "suser";
+
+ul.append(msgbtn);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+socket.on('message', message => {
+var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+var st = message;
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+msgadd.className = "msg left";
+msgadd.innerText = st + '    ' +  '  '+  time  ;
+
+
+/* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
+ul.append(msgadd);
+scrollbottom();
+
+
+
+});
+
+
+socket.on('msghead', message => {
+var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+var st = message;
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+msgadd.className = "msg left";
+msgadd.innerText = st ;
+
+
+/* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
+ul.append(msgadd);
+scrollbottom();
+
+
+
+});
+
+
+
+
+socket.on('pumsg', data => {
+var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+var st =data.sender +':'+  data.msg;
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+msgadd.className = "msg left";
+msgadd.innerText =st + '    ' +  '  '+  time  ;
+
+
+/* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
+ul.append(msgadd);
+scrollbottom();
+
+
+
+});
+
+
+
+
+socket.on('pmsg', data => {
+
+var ul = document.querySelector(".msgbox");
+var st =data.sender +':'+  data.msg;
+var time = document.getElementById('mytime').innerText;
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+msgadd.className = "msg left";
+msgadd.innerText = st + '    ' +  '  '+  time  ;
+
+
+/* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
+ul.append(msgadd);
+scrollbottom();
+
+
+
+});
+
+
+
+
+
+
+
+
+
+function scrollbottom() {
+
+var mbox = document.getElementById("msgbox");
+mbox.scrollTop = mbox.scrollHeight;
+}
+
+
+
+
+
+
+socket.on('user-join', name => {
+
+var st = name + ':' + "join the chat";
+var time = document.getElementById('mytime').innerText;
+var ul = document.querySelector(".msgbox");
+
+var listtext = document.createTextNode(st);
+var msgadd = document.createElement('div');
+msgadd.className = "msg left";
+msgadd.innerText =st + '    ' +  '  '+  time  ;
+
+
+/* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
+ul.append(msgadd);
+scrollbottom();
+});
+
+
+
+
+
+socket.on('auser', username => {
+
+var st = username;
+var msg = st;
+
+console.log(st);
+
+
+var ul = document.getElementById('userl');
+
+var listtext = document.createTextNode(st);
+
+var msgbtn = document.createElement('li');
+
+msgbtn.innerText = st;
+msgbtn.id = ".suser";
+msgbtn.className = "suser";
+
+ul.append(msgbtn);
+
+var item = document.querySelectorAll("#userl li"), tab = [], index;
+
+console.log(item);
+
+
+
+for (var i = 0; i < item.length; i++) {
+   item[i].onclick = function () {
+      index = tab.indexOf(this.innerHTML);
+      
+      var usname=this.innerHTML;
+     receiver=usname;
+     flag=1;
+
+      alert('Selected user :' + usname);
+     
+
+
+   };
+}
+
+
+
+
+
+
+});
+
+
+
+
+</script>
+
+
+<style type="text/css">
+.header{
+    max-width: 700px;
+    height: 150px;
+    background-color:darkslategrey;
+    border-radius: 20px;
+}
+.header img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float: left;
+}
+.msgbox{
+    max-width: 700px;
+    height: 400px;
+    overflow-y:auto;
+    background-color: aqua;
+    border-radius: 20px;
+}
+.footer{
+    max-width: 700px;
+    height: 150px;
+    background-color:darkslategray;
+    border-radius: 20px;
+}
+.footer .smsg input[type=text]{
+
+width:300px;
+height: 40px;
+border-color: chartreuse;
+margin:10px;
+border-radius: 10px;
+
+}
+
+.footer .smsg input[type=submit]{
+    width:100px;
+height: 40px;
+border-color: chartreuse;
+margin:10px;
+border-radius: 50%;
+
+}
+
+.footer .ufile input[type=file]{
+
+width:200px;
+height: 40px;
+border-color: chartreuse;
+margin:10px;
+border-radius: 10px;
+
+}
+
+.footer .ufile input[type=submit]{
+    width:100px;
+height: 40px;
+border-color: chartreuse;
+margin:10px;
+border-radius:35%;
+
+}
+.footer .ufile {
+    max-width: 500px;
+    height: 60px;
+    border:1px solid;
+    border-color: chartreuse;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+.footer .smsg {
+    max-width: 500px;
+    height: 60px;
+    border:1px solid;
+    border-color: chartreuse;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.header{
+    text-align: center;
+    color:white;
+}
+.header .eid{
+    width:400px;
+    float: right;
+
+}
+.header .eid input[type=text] {
+float: right;
+width: 200px;
+height: 35px;
+border-radius: 10px;
+
+}
+
+.header .eid input[type=submit] {
+float: right;
+width: 100px;
+height: 40px;
+border-radius: 10px;
+
+}
+
+.msg {
+         width: 200px;
+         background-color: gray;
+         padding: 20px;
+         border-radius: 10px;
+         margin: 17px 12px;
+         border: 2px solid black;
+
+
+
+
+      }
+      .msg img{
+width :100px;
+height: 100px;
+      }
+
+      .left {
+         float: left;
+         clear: both;
+      }
+
+      .right {
+         float: right;
+         clear: both;
+      }
+
+      .sbody{
+          width: 300px;
+          height: 400px;
+          background-color:darkturquoise;
+          border-radius: 20px;
+        
+      }
+      .mbody{
+         max-width: 750px;
+          height: 400px;
+          
+      }
+
+
+.bodymain{
+    max-width:1300px;
+    height: 700px;
+    display: flex;
+   
+
+
+
+
+}
+ .sbody .ulist ul {
+
+         margin: 0;
+
+      }
+
+      .sbody .ulist ul li {
+         margin-top: 10px;
+         margin-bottom: 10px;
+         width: 150px;
+         height: 35px;
+         font-size: medium;
+         list-style-type: none;
+         background-color:red;
+         border-radius: 10px;
+         text-align: center;
+         line-height: 35px;
+         box-shadow: 3px 5px 10px white;
+         color:white;
+         text-shadow: 3px 5px 10px black;
+
+
+
+      }
+
+      .sbody ul li:hover{
+background-color: yellow;
+      }
+
+
+      .mainbody p{
+         font-size: x-large;
+         font-family: 'Times New Roman', Times, serif;
+         color:white;
+      }
+
+
+
+</style>
+
+
+
+</head>
+<body>
+    <div class="bodymain">
+
+
+
+
+<div id="sbody" class="sbody">
+
+    <!--  <input type="text" id="rem" class="mbs" placeholder="Enter your  Name">
+    <input type="submit" id="res" class="mbt" value="Submit" onclick="addname();"> -->
+
+    <div id="ulist" class="ulist">
+       <p> Connected User.....</p>
+       <ul id="userl">
+
+
+       </ul>
+
+
+</div>
+
+</div>
+   
+
+<div id="mbody" class="mbody">
+
+<div class="header">
+    <img id="img" src="img/WelcomeScan.jpg"  >
+   
+    <h3>mychatgroup.App</h3>
+    <p id="header">Welcome in our chat Room</p>
+    <p id="mytime">4.00 AM</p>
+
+
+<div class="eid">
+
+    <input type="submit" id="subid" onclick="sname();" />
+<input type="text" id="id" placeholder="Enter your Name" />
+
+</div>
+</div>
+
+<div id="msgbox" class="msgbox">
+
+
+
+
+
+
+
+</div>
+
+<div class="footer">
+
+<div class="smsg">
+<input type="text" class="textm" id="stext"/>
+<input type="submit" class="sub" id="sub" value="Send" onclick="outelement();"/>
+
+</div>
+
+
+<div class="ufile">
+<form method="POST" action="/" enctype="multipart/form-data">
+    <input id="file" type="file" name="file" class="f" />
+    <input type="submit" class="f" value="Upload" onclick="upload();" ">
+</div>
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+</body>
+
+
+<script type="text/javascript">
+ var ul = document.querySelector(".msgbox");
+
+function inelement() {
+
+   var msgadd = document.createElement('div');
+   var st = document.getElementById('stext').value;
+   var time = document.getElementById('mytime').innerText;
+   var listtext = document.createTextNode(st);
+   console.log(listtext);
+   msgadd.innerText = listtext;
+
+   msgadd.className = "msg left"
+
+   var mytime = clockdisplay();
+   msgadd.innerText = st + '    ' +  '  '+  time  ;
+
+
+   ul.append(msgadd);
+
+   scrollbottom();
+
+
+
+
+
+
+}
+
+function outelement() {
+
+   var msgadd = document.createElement('div');
+   var st = document.getElementById('stext').value;
+
+   var time = document.getElementById('mytime').innerText;
+   var listtext = document.createTextNode(st);
+   console.log(listtext);
+   msgadd.innerText = listtext;
+
+   msgadd.className = "msg right";
+
+   var mytime = clockdisplay();
+   msgadd.innerText = st + '    ' +  '  '+  time  ;
+
+
+
+
+
+
+
+
+   var msgt = name + ':' + msgadd.innerText;
+   if (flag==0){
+      socket.emit('chatp', {sender,receiver,msg:st,mtime:time});
+   }
+   else if(flag==1){
+      socket.emit('chatm', {sender,receiver,msg:st,mtime:time});
+   }
+
+   /* socket.emit('chatm', {sender,receiver,msg:st,value:flag}); */
+
+   msgadd.innerText = 'you :' + st + '    ' +  '  '+  time  ;
+   ul.append(msgadd);
+   scrollbottom();
+
+   document.getElementById('stext').value = "";
+
+}
+
+
+setInterval(clockdisplay, 500);
+
+function clockdisplay() {
+
+
+   /* document.getElementById('mytime').innerHTML = Date(); */
+
+   var today = new Date();
+   var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+   var dateTime = date + ' ' + time;
+   document.getElementById('mytime').innerHTML = time;
+   return time;
+
+}
+
+</script>
+
+
+</html>
