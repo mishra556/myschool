@@ -369,32 +369,32 @@ for (var i = 0; i < item.length; i++) {
 
 
 <style type="text/css">
-.header{
+.mbody .header{
     max-width: 700px;
     height: 150px;
     background-color:darkslategrey;
     border-radius: 20px;
 }
-.header img{
+.mbody .header img{
     width: 80px;
     height: 80px;
     border-radius: 50%;
     float: left;
 }
-.msgbox{
+.mbody .msgbox{
     max-width: 700px;
     height: 400px;
     overflow-y:auto;
     background-color:dimgrey;
     border-radius: 20px;
 }
-.footer{
+.mbody .footer{
     max-width: 700px;
     height: 150px;
     background-color:darkslategray;
     border-radius: 20px;
 }
-.footer .smsg input[type=text]{
+.mbody .footer .smsg input[type=text]{
 
 max-width:300px;
 height: 40px;
@@ -404,7 +404,7 @@ border-radius: 10px;
 
 }
 
-.footer .smsg input[type=submit]{
+.mbody .footer .smsg input[type=submit]{
     width:100px;
 height: 40px;
 border-color: chartreuse;
@@ -413,7 +413,7 @@ border-radius: 50%;
 
 }
 
-.footer .ufile input[type=file]{
+.mbody .footer .ufile input[type=file]{
 
 width:200px;
 height: 40px;
@@ -423,7 +423,8 @@ border-radius: 10px;
 
 }
 
-.footer .ufile input[type=submit]{
+.mbody .footer .ufile input[type=submit]
+{
     width:100px;
 height: 40px;
 border-color: chartreuse;
@@ -431,7 +432,7 @@ margin:10px;
 border-radius:35%;
 
 }
-.footer .ufile {
+.mbody .footer .ufile {
     max-width: 500px;
     height: 60px;
     border:1px solid;
@@ -439,7 +440,7 @@ border-radius:35%;
     border-radius: 10px;
     margin: 0 auto;
 }
-.footer .smsg {
+.mbody .footer .smsg {
     max-width: 500px;
     height: 60px;
     border:1px solid;
@@ -448,16 +449,16 @@ border-radius:35%;
     margin: 0 auto;
 }
 
-.header{
+.mbody .header{
     text-align: center;
     color:white;
 }
-.header .eid{
+.mbody .header .eid{
     width:400px;
     float: right;
 
 }
-.header .eid input[type=text] {
+.mbody .header .eid input[type=text] {
 float: right;
 width: 200px;
 height: 35px;
@@ -465,7 +466,7 @@ border-radius: 10px;
 
 }
 
-.header .eid input[type=submit] {
+.mbody .header .eid input[type=submit] {
 float: right;
 width: 100px;
 height: 40px;
@@ -486,6 +487,7 @@ border-radius: 10px;
 
       }
       .msg img{
+
 width :100px;
 height: 100px;
       }
@@ -509,16 +511,16 @@ height: 100px;
       }
       .mbody{
          max-width: 750px;
-          height: 400px;
+          height:auto;
           
       }
 
 
 .bodymain{
     max-width:1100px;
-    height: 700px;
+    height:auto;
     display: flex;
-    background-color: dimgrey;
+   
     
    
 
