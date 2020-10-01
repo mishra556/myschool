@@ -77,8 +77,8 @@ io.on('connection', (socket) => {
 
 
 
-   socket.on('upload', sender => {
-var send=sender;
+   socket.on('upload', name => {
+
 
           
       
@@ -98,7 +98,8 @@ var send=sender;
                else{
                  
                  
-                   socket.broadcast.emit('ufname', {sender,filename});
+                   io.emit('ufname', {name,filename});
+                   
                }
             });
          }
