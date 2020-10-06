@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
 var upload = require('express-fileupload');
 const { request } = require("https");
 
@@ -42,6 +43,10 @@ io.on('connection', (socket) => {
       
 
       console.log(name + ':' + 'connected');
+
+      
+
+
 
 
       users[name] = socket.id;
@@ -138,6 +143,7 @@ io.on('connection', (socket) => {
                      if(err){
                         res.send(err);
                      }
+
                      else{
                        
                        
@@ -158,9 +164,14 @@ io.on('connection', (socket) => {
             
             
                } );
+
+
+               socket.on('stream', (image)=>{
+                socket.broadcast.emit('recimg',image);
+               })
+               
                  
-           
-      
+              
          });
            
 

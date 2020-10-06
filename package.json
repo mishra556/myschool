@@ -12,9 +12,12 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "formidable": "^1.2.2",
     "http": "0.0.1-security",
     "internet-available": "^1.0.0",
+    "node-webcam": "^0.6.4",
     "nodemon": "^2.0.4",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "webcam-easy": "^1.0.5"
   }
 }

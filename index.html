@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myonlinechat.App</title>
+
+
+
+
+
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
@@ -17,6 +22,8 @@
         var sender = '';
         var flag = 0;
         var req = 0;
+        var timg=document.getElementById('photo');
+     
 
 
         function sname() {
@@ -24,7 +31,7 @@
             if (id !== "") {
 
                 sender = name;
-                
+
 
                 socket.emit('new-user-join', name);
 
@@ -34,6 +41,29 @@
             }
 
         }
+
+
+
+
+        socket.on('recimg', image => {
+
+
+        var img=document.getElementById('photo');
+             img.src=image;
+
+            img.style.display = "block";
+            img.style.marginBottom = "10px";
+           
+          
+
+          
+
+
+
+          
+            scrollbottom();
+
+        });
 
 
 
@@ -50,16 +80,18 @@
 
             if (flag == 0) {
                 socket.emit('upload', name);
-              
+
             }
             else if (flag == 1) {
                 socket.emit('touser', { name, receiver });
-               
+
 
             }
 
 
         }
+
+
 
 
 
@@ -69,7 +101,7 @@
             var ul = document.querySelector(".msgbox");
             var st = data.name;
             var file = data.filename;
-           
+
             var listtext = document.createTextNode(st);
             var msgadd = document.createElement('div');
 
@@ -95,13 +127,16 @@
             scrollbottom();
 
         });
+
+
+
         socket.on('upname', data => {
 
             var time = document.getElementById('mytime').innerText;
             var ul = document.querySelector(".msgbox");
             var st = data.name;
             var file = data.filename;
-           
+
             var listtext = document.createTextNode(st);
             var msgadd = document.createElement('div');
 
@@ -202,7 +237,9 @@
 
             /* document.getElementsByClassName('.msgbox').appendChild(msgadd); */
             ul.append(msgadd);
+
             scrollbottom();
+
 
 
 
@@ -364,6 +401,9 @@
 
 
 
+
+
+
     </script>
 
 
@@ -388,25 +428,26 @@
         }
 
         .sd1 .main .eid input[type=text] {
-float: right;
-width: 200px;
-height: 35px;
-border-radius: 10px;
+            float: right;
+            width: 200px;
+            height: 35px;
+            border-radius: 10px;
 
-}
-.sd1 .main .eid input[type=submit] {
-float: right;
-width: 100px;
-height: 40px;
-border-radius: 10px;
+        }
 
-}
+        .sd1 .main .eid input[type=submit] {
+            float: right;
+            width: 100px;
+            height: 40px;
+            border-radius: 10px;
+
+        }
 
 
 
-        .sd1 .main img{
+        .sd1 .main img {
             float: left;
-            width:50px;
+            width: 50px;
             height: 50px;
             border-radius: 50%;
         }
@@ -418,11 +459,11 @@ border-radius: 10px;
             margin-top: 50px;
             max-width: 900px;
 
-            height:auto;
+            height: auto;
             background-color: rgb(117, 111, 101);
             border-radius: 10px;
             margin: 0 auto;
-  
+
         }
 
 
@@ -458,27 +499,26 @@ border-radius: 10px;
             margin-top: 20px;
             border: 1px solid yellow;
         }
-        
 
-.send .ufile input[type=file]{
 
-width:200px;
-height: 40px;
-border-color: chartreuse;
-margin:10px;
-border-radius: 10px;
+        .send .ufile input[type=file] {
 
-}
+            width: 200px;
+            height: 40px;
+            border-color: chartreuse;
+            margin: 10px;
+            border-radius: 10px;
 
-.send .ufile input[type=submit]
-{
-    width:100px;
-height: 40px;
+        }
 
-margin:10px;
-border-radius:35%;
+        .send .ufile input[type=submit] {
+            width: 100px;
+            height: 40px;
 
-}
+            margin: 10px;
+            border-radius: 35%;
+
+        }
 
 
 
@@ -629,16 +669,29 @@ border-radius:35%;
             max-width: 1000px;
             height: auto;
             margin: 0 auto;
-        
+
 
             display: flex;
         }
 
 
-        #a{
+        #a {
             font-size: medium;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             text-shadow: 3px 5px 10px black;
+        }
+
+        #att {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+       .bodymain .video{
+            height: auto;
+            background-color: coral;
+            border-radius: 10px;
+
         }
     </style>
 
@@ -650,8 +703,8 @@ border-radius:35%;
     <div class="bodymain">
 
         <div class="mainbody">
-            
-          
+
+
             <div id="ulist" class="ulist">
                 <p> Connected User.....</p>
                 <ul id="userl">
@@ -667,8 +720,8 @@ border-radius:35%;
 
         <div class="sd1">
             <div class="main">
-                <img id="img" src="img/WelcomeScan.jpg"  >
-   
+                <img id="img" src="img/WelcomeScan.jpg">
+
                 <h3>mychatgroup.App</h3>
                 <p id="header">Welcome in our chat Room</p>
                 <p id="mytime">4.00 AM</p>
@@ -683,8 +736,18 @@ border-radius:35%;
 
             </div>
 
+            <div class="video">
+
+                <video id="video" autoplay="true" autoplay></video>
+                <canvas id="canvas"></canvas><br>
+                <img id="photo" src="" alt="" >
+                
+            </div>
+            
 
             <div id="box" class="msgbox">
+
+                
 
 
 
@@ -706,19 +769,22 @@ border-radius:35%;
                 <div class="form">
                     <input type="text" id="stext">
                     <button type="submit" id="msend" class="btn" onclick="outelement();">send</button>
-                    <!--       <button type="submit" id="attach" class="btn" onclick="outelement();">attach</button> -->
+                    <!--   <a id="attach"><span><img id="att" src="img/download.jpg" /></span></a> -->
+                    <!-- <i class="material-icons" >attachment</i> -->
+                    <input type="submit" class="webcam" value="video chat" onclick="datasend();">
 
                 </div>
                 <div class="ufile">
                     <form method="POST" action="/" enctype="multipart/form-data">
                         <input id="file" type="file" name="file" class="f" />
-                        <input type="submit" class="f" value="Upload" onclick="upload();" ">
-                    </div>
-                    <p id="a">Author:Mukesh kumar</p>
+                        <input type="submit" class="f" value="Upload" onclick="upload();">
+
+                </div>
+                <p id="a">Author:Mukesh kumar</p>
 
             </div>
         </div>
-        
+
     </div>
 
 
@@ -788,6 +854,7 @@ border-radius:35%;
 
         msgadd.innerText = 'you :' + st + '    ' + '  ' + time;
         ul.append(msgadd);
+
         scrollbottom();
 
         document.getElementById('stext').value = "";
@@ -808,6 +875,68 @@ border-radius:35%;
         var dateTime = date + ' ' + time;
         document.getElementById('mytime').innerHTML = time;
         return time;
+
+    }
+
+
+
+    function datasend() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        video.width = 200;
+        video.height = 200;
+
+        canvas.style.display = 'none'; 
+        /* canvas.width = 512;
+        canvas.height = 384; */
+
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitgetusermedia || navigator.mozgetusermedia || navigator.ogetusermedia || navigator.Ogetusermedia || navigator.msgetusermedia;
+
+
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({ video: true }, streamwebcam, throwError);
+
+
+        }
+
+
+        function streamwebcam(stream) {
+
+            /* video.src=window.URL.createObjectURL(stream);
+            video.play(); */
+            video.srcObject = stream;
+            video.play();
+
+        }
+        function throwError(e) {
+            alert(e.name);
+        }
+
+        setInterval(() => {
+            snap();
+
+
+        }, 50);
+
+
+        function snap() {
+
+            context.drawImage(video, 0, 0, 200, 200);
+
+            socket.emit('stream', canvas.toDataURL('image/webp'));
+
+            
+            
+
+
+        };
+
+        var img = document.getElementById('photo');
+            img.setAttribute('src', canvas.toDataURL('image/png'));
+
 
     }
 
