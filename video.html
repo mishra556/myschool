@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style type="text/css">
+#video{
+
+    width:600px;
+    height: 500px;
+    
+
+}
+#canvas{
+    width: 400px;
+    height: 400px;;
+}
+
+</style>
+<body>
+
+
+<video id="video" autoplay="true"></video>
+<canvas id="canvas"></canvas><br>
+<button onclick="snap();">snap</button>
+
+</body>
+
+<script type="text/javascript">
+var video=document.getElementById('video');
+var canvas=document.getElementById('canvas');
+var context=canvas.getContext('2d');
+
+navigator.getUserMedia=navigator.getUserMedia || navigator.webkitgetusermedia || navigator.mozgetusermedia||navigator.ogetusermedia||navigator.Ogetusermedia||navigator.msgetusermedia;
+
+
+if (navigator.getUserMedia){
+    navigator.getUserMedia({video:true},streamwebcam,throwError);
+}
+
+function streamwebcam(stream){
+
+/* video.src=window.URL.createObjectURL(stream);
+video.play(); */
+video.srcObject=stream;
+video.play();
+
+}
+function throwError (e){
+    alert(e.name);
+}
+function snap (){
+    canvas.width=video.clientWidth;
+    canvas.height=video.clientHeight;
+    context.drawImage(video,0,0)};
+
+
+
+</script>
+
+
+    
+</body>
+</html>
