@@ -22,8 +22,8 @@
         var sender = '';
         var flag = 0;
         var req = 0;
-        var timg=document.getElementById('photo');
-     
+        var timg = document.getElementById('photo');
+        var aclient = 0;
 
 
         function sname() {
@@ -31,9 +31,11 @@
             if (id !== "") {
 
                 sender = name;
+                aclient++;
+               
+               
 
-
-                socket.emit('new-user-join', name);
+                socket.emit('new-user-join', { name, aclient });
 
             }
             else {
@@ -48,22 +50,23 @@
         socket.on('recimg', image => {
 
 
-        var img=document.getElementById('photo');
-             img.src=image;
+            var img = document.getElementById('photo');
+            img.width = "600";
+            img.height = "400";
+            img.src = image;
 
             img.style.display = "block";
-            img.style.marginBottom = "10px";
-           
-          
-
-          
+            img.style.margin = "10px";
 
 
 
-          
             scrollbottom();
 
         });
+
+
+       
+
 
 
 
@@ -477,7 +480,7 @@
         .send .form input[type=text] {
             margin: 10px;
             max-width: 350px;
-            min-width: 300px;
+            min-width: 200px;
             height: 40px;
             border-radius: 10px;
 
@@ -517,14 +520,33 @@
 
             margin: 10px;
             border-radius: 35%;
+            box-shadow: 3px 5px 10px black;
 
         }
 
+        .send .form input[type=submit],
+        input[type=button] {
+            width: 100px;
+            height: 40px;
 
+            margin: 10px;
+            border-radius: 35%;
+            box-shadow: 3px 5px 10px black;
 
+        }
 
+        .send .form input[type=submit]:hover {
 
+            box-shadow: 1px 1px 10px black;
+            background-color: yellow;
 
+        }
+
+        .send .ufile input[type=submit]:hover {
+
+            box-shadow: 1px 1px 10px black;
+            background-color: yellow;
+        }
 
         .sd1 .msgbox {
 
@@ -687,10 +709,18 @@
             border-radius: 50%;
         }
 
-       .bodymain .video{
+        .bodymain .video {
             height: auto;
-            background-color: coral;
+            background-color: black;
             border-radius: 10px;
+
+        }
+
+        .bodymain .video #photo,
+        #video {
+
+            border-radius: 10px;
+
 
         }
     </style>
@@ -737,17 +767,21 @@
             </div>
 
             <div class="video">
+                <audio id="mymusic" src="public/img/my.MP3"></audio>
 
                 <video id="video" autoplay="true" autoplay></video>
+                <video id="videor" autoplay="true" playsinline loop></video>
+
                 <canvas id="canvas"></canvas><br>
-                <img id="photo" src="" alt="" >
-                
+                <img id="photo" src="" alt="">
+
+
             </div>
-            
+
 
             <div id="box" class="msgbox">
 
-                
+
 
 
 
@@ -768,7 +802,7 @@
             <div class="send">
                 <div class="form">
                     <input type="text" id="stext">
-                    <button type="submit" id="msend" class="btn" onclick="outelement();">send</button>
+                    <input type="submit" id="msend" class="btn" onclick="outelement();" value="send">
                     <!--   <a id="attach"><span><img id="att" src="img/download.jpg" /></span></a> -->
                     <!-- <i class="material-icons" >attachment</i> -->
                     <input type="submit" class="webcam" value="video chat" onclick="datasend();">
@@ -879,16 +913,24 @@
     }
 
 
+    window.onload = function () {
+        document.getElementById('mymusic').play;
+    }
+
+
 
     function datasend() {
         var video = document.getElementById('video');
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
 
-        video.width = 200;
+        var audio =
+
+            video.width = 200;
         video.height = 200;
 
-        canvas.style.display = 'none'; 
+
+        canvas.style.display = 'none';
         /* canvas.width = 512;
         canvas.height = 384; */
 
@@ -903,14 +945,21 @@
         }
 
 
+        var streamRecorder;
+        var webcamstream;
+
         function streamwebcam(stream) {
 
             /* video.src=window.URL.createObjectURL(stream);
             video.play(); */
             video.srcObject = stream;
+
+
             video.play();
 
+
         }
+
         function throwError(e) {
             alert(e.name);
         }
@@ -919,7 +968,7 @@
             snap();
 
 
-        }, 50);
+        }, 20);
 
 
         function snap() {
@@ -928,17 +977,47 @@
 
             socket.emit('stream', canvas.toDataURL('image/webp'));
 
-            
-            
+
+
+
 
 
         };
 
         var img = document.getElementById('photo');
-            img.setAttribute('src', canvas.toDataURL('image/png'));
+        img.setAttribute('src', canvas.toDataURL('image/png'));
 
 
     }
+
+
+    /* function  audio(){
+    
+    var device =navigator.mediaDevices.getUserMedia({audio:true});
+    var item=[];
+    device.then(stream=>{
+    
+    
+        var recorder=new MediaRecorder(stream);
+    recorder.ondataavialble=e=>{
+        if (recorder.state=='inactive')
+    
+        {
+    var blob=new blob(items,{type:'audio/webm'});
+    
+    var audio=document.getElementById('mymusic');
+    
+        }
+    }
+    
+    
+    
+    })
+    
+    
+    
+    
+    } */
 
 </script>
 

@@ -4,7 +4,7 @@
   "description": "chat application",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon  index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "mukesh",
@@ -13,11 +13,14 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "formidable": "^1.2.2",
+    "getusermedia": "^2.0.1",
     "http": "0.0.1-security",
     "internet-available": "^1.0.0",
     "node-webcam": "^0.6.4",
     "nodemon": "^2.0.4",
+    "simple-peer": "^9.7.2",
     "socket.io": "^2.3.0",
+    "watchify": "^3.11.1",
     "webcam-easy": "^1.0.5"
   }
 }
